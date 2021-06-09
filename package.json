@@ -43,7 +43,7 @@
     "@types/react": "^16.9.11",
     "@types/react-dom": "^16.9.4",
     "lerna": "^3.19.0",
-    "react": ">=16.8",
+    "react": "^17.0.2",
     "react-dom": ">=16.8",
     "rimraf": "^3.0.1",
     "tsdx": "^0.11.0"
@@ -53,5 +53,9 @@
     "semi": false,
     "singleQuote": true,
     "printWidth": 120
+  },
+  "dependencies": {
+    "@binance-chain/bsc-connector": "^1.0.0",
+    "@web3-react/core": "^6.1.9"
   }
 }

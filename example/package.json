@@ -5,6 +5,7 @@
     "build": "next build && next export"
   },
   "dependencies": {
+    "@binance-chain/bsc-connector": "^1.0.0",
     "@ethersproject/providers": "^5.1.2",
     "@ethersproject/units": "^5.1.0",
     "@web3-react/abstract-connector": "latest",
@@ -23,7 +24,7 @@
     "@web3-react/walletconnect-connector": "latest",
     "@web3-react/walletlink-connector": "latest",
     "next": "^9.2.1",
-    "react": ">=16.8",
+    "react": "^17.0.2",
     "react-dom": ">=16.8",
     "typescript": "^3.7.5"
   }

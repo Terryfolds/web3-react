@@ -1,4 +1,5 @@
 import { InjectedConnector } from '@web3-react/injected-connector'
+import { BscConnector } from '@binance-chain/bsc-connector'
 import { NetworkConnector } from '@web3-react/network-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
@@ -18,7 +19,9 @@ const RPC_URLS: { [chainId: number]: string } = {
   4: process.env.RPC_URL_4 as string
 }
 
-export const injected = new InjectedConnector({ supportedChainIds: [1, 3, 4, 5, 42] })
+export const injected = new InjectedConnector({ supportedChainIds: [56, 97] })
+
+export const bscConnector = new BscConnector({ supportedChainIds: [56] })
 
 export const network = new NetworkConnector({
   urls: { 1: RPC_URLS[1], 4: RPC_URLS[4] },
@@ -26,7 +29,7 @@ export const network = new NetworkConnector({
 })
 
 export const walletconnect = new WalletConnectConnector({
-  rpc: { 1: RPC_URLS[1], 4: RPC_URLS[4] },
+  rpc: { 1: RPC_URLS[1] },
   qrcode: true,
   pollingInterval: POLLING_INTERVAL
 })
