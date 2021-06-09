@@ -16,7 +16,7 @@ import {
 import { Spinner } from '../components/Spinner'
 
 enum ConnectorNames {
-  Injected = 'Connect Wallet'
+  Injected = 'CONNECT'
 }
 
 const connectorsByName: { [connectorName in ConnectorNames]: any } = {
@@ -107,7 +107,7 @@ function Balance() {
   )
 }
 
-function Header() {
+function UserAccount() {
   const { active, error } = useWeb3React()
 
   return (
@@ -115,7 +115,7 @@ function Header() {
       <h3
         style={{
           display: 'grid',
-          gridGap: '1rem',
+          gridGap: '.5rem',
           gridTemplateColumns: '1fr 1fr',
           maxWidth: '20rem',
           lineHeight: '2rem',
@@ -149,14 +149,12 @@ function App() {
 
   return (
     <>
-      <Header />
-      <hr style={{ margin: '2rem' }} />
       <div
         style={{
           display: 'grid',
           gridGap: '1rem',
-          gridTemplateColumns: '1fr 1fr',
-          maxWidth: '30rem',
+          gridTemplateColumns: '1fr',
+          maxWidth: '15rem',
           margin: 'auto'
         }}
       >
@@ -169,9 +167,9 @@ function App() {
           return (
             <button
               style={{
-                height: '3rem',
-                borderRadius: '1rem',
-                borderColor: activating ? 'orange' : connected ? 'green' : 'unset',
+                background: '#07c7ff',
+                display: connected ? 'none' : 'unset',
+                borderColor: activating ? 'orange' : connected ? '#07c7ff' : 'unset',
                 cursor: disabled ? 'unset' : 'pointer',
                 position: 'relative'
               }}
@@ -180,8 +178,7 @@ function App() {
               onClick={() => {
                 setActivatingConnector(currentConnector)
                 activate(connectorsByName[name])
-              }}
-            >
+              }}>
               <div
                 style={{
                   position: 'absolute',
@@ -191,10 +188,9 @@ function App() {
                   display: 'flex',
                   alignItems: 'center',
                   color: 'black',
-                  margin: '0 0 0 1rem'
+                  margin: '0'
                 }}
               >
-                {activating && <Spinner color={'black'} style={{ height: '25%', marginLeft: '-1rem' }} />}
               </div>
               {name}
             </button>
@@ -204,34 +200,24 @@ function App() {
             <button
               style={{
                 height: '3rem',
-                margin: '0 0 0 1rem',
+                margin: '0',
                 borderRadius: '1rem',
-                borderColor: 'red',
+                borderColor: 'none',
                 cursor: 'pointer'
               }}
               onClick={() => {
                 deactivate()
               }}
             >
-              Disconnect
+              DISCONNECT
             </button>
           )}
 
           {!!error && <h4 style={{ marginTop: '1rem', marginBottom: '0' }}>{getErrorMessage(error)}</h4>}
 
       </div>
-      <hr style={{ margin: '2rem' }} />
+      <UserAccount />
 
-      <div
-        style={{
-          display: 'grid',
-          gridGap: '1rem',
-          gridTemplateColumns: 'fit-content',
-          maxWidth: '20rem',
-          margin: 'auto'
-        }}
-      >
-      </div>
     </>
   )
 }
