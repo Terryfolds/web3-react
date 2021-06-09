@@ -54,74 +54,12 @@ export default function() {
   )
 }
 
-function ChainId() {
-  const { chainId } = useWeb3React()
-
-  return (
-    <>
-      <span>Chain Id</span>
-      <span role="img" aria-label="chain">
-        ⛓
-      </span>
-      <span>{chainId ?? ''}</span>
-    </>
-  )
-}
-
-function BlockNumber() {
-  const { chainId, library } = useWeb3React()
-
-  const [blockNumber, setBlockNumber] = React.useState<number>()
-  React.useEffect((): any => {
-    if (!!library) {
-      let stale = false
-
-      library
-        .getBlockNumber()
-        .then((blockNumber: number) => {
-          if (!stale) {
-            setBlockNumber(blockNumber)
-          }
-        })
-        .catch(() => {
-          if (!stale) {
-            setBlockNumber(null)
-          }
-        })
-
-      const updateBlockNumber = (blockNumber: number) => {
-        setBlockNumber(blockNumber)
-      }
-      library.on('block', updateBlockNumber)
-
-      return () => {
-        stale = true
-        library.removeListener('block', updateBlockNumber)
-        setBlockNumber(undefined)
-      }
-    }
-  }, [library, chainId]) // ensures refresh if referential identity of library doesn't change across chainIds
-
-  return (
-    <>
-      <span>Block Number</span>
-      <span role="img" aria-label="numbers">
-        🔢
-      </span>
-      <span>{blockNumber === null ? 'Error' : blockNumber ?? ''}</span>
-    </>
-  )
-}
-
 function Account() {
   const { account } = useWeb3React()
 
   return (
     <>
       <span>Account</span>
-      <span role="img" aria-label="robot">
-        🤖
-      </span>
       <span>
         {account === null
           ? '-'
@@ -163,11 +101,8 @@ function Balance() {
 
   return (
     <>
-      <span>Balance</span>
-      <span role="img" aria-label="gold">
-        💰
-      </span>
-      <span>{balance === null ? 'Error' : balance ? `Ξ${formatEther(balance)}` : ''}</span>
+      <span>BNB Balance</span>
+      <span>{balance === null ? 'Error' : balance ? `${formatEther(balance).substring(0, 8)}` : ''}</span>
     </>
   )
 }
@@ -177,19 +112,16 @@ function Header() {
 
   return (
     <>
-      <h1 style={{ margin: '1rem', textAlign: 'right' }}>{active ? '🟢' : error ? '🔴' : '🟠'}</h1>
       <h3
         style={{
           display: 'grid',
           gridGap: '1rem',
-          gridTemplateColumns: '1fr min-content 1fr',
+          gridTemplateColumns: '1fr 1fr',
           maxWidth: '20rem',
           lineHeight: '2rem',
           margin: 'auto'
         }}
       >
-        <ChainId />
-        <BlockNumber />
         <Account />
         <Balance />
       </h3>
@@ -263,11 +195,6 @@ function App() {
                 }}
               >
                 {activating && <Spinner color={'black'} style={{ height: '25%', marginLeft: '-1rem' }} />}
-                {connected && (
-                  <span role="img" aria-label="check">
-                    ✅
-                  </span>
-                )}
               </div>
               {name}
             </button>
