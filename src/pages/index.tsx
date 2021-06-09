@@ -199,7 +199,6 @@ function App() {
         {(active || error) && (
             <button
               style={{
-                height: '3rem',
                 margin: '0',
                 borderRadius: '1rem',
                 borderColor: 'none',
